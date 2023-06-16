@@ -1,12 +1,13 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PSWORD,
   database: process.env.DB_DATABASE,
 });
 
-db.connect();
-
-module.exports = db;
+pool.getConnection(function(err, conn) {
+  pool.releaseConnection(conn);
+})
+module.exports = pool;

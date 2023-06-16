@@ -7,28 +7,66 @@ class User {
     this.body = body;
   }
 
-  async login() {
+  async stockvalue() {
     const client = this.body;
     try {
-      const user = await UserStorage.getUserInfo(client.id);
+      const user = await UserStorage.getUserInfo(client.codename);
 
       if (user) {
-        if (user.id === client.id && user.psword === client.psword) {
+        if (user.codename === client.codename) {
           return { success: true };
         }
-        return { success: false, msg: "비밀번호가 틀렸습니다." };
       }
-      return { success: false, msg: "존재하지 않는 아이디입니다." };
+      return { success: false, msg: "존재하지 않는 종목명입니다." };
     } catch (err) {
       return { success: false, err };
     }
   }
 
-  async register() {
+  async searchstock_pc() {
     const client = this.body;
     try {
-      const response = await UserStorage.save(client);
-      return response;
+      const user = await UserStorage.getUserInfo(client.codename);
+
+      if (user) {
+        if (user.codename === client.codename) {
+          return { success: true };
+        }
+      }
+      return { success: false, msg: "존재하지 않는 종목명입니다." };
+    } catch (err) {
+      return { success: false, err };
+    }
+  }
+
+  async searchstock_mobile() {
+    const client = this.body;
+    try {
+      const user = await UserStorage.getUserInfo(client.codename);
+
+      if (user) {
+        if (user.codename === client.codename) {
+          return { success: true };
+        }
+      }
+      return { success: false, msg: "존재하지 않는 종목명입니다." };
+    } catch (err) {
+      return { success: false, err };
+    }
+  }
+
+  async view() {
+    const client = this.body;
+    try {
+      const user = await UserStorage.getUserInfo(client.codename);
+      const buruk$ = await UserStorage.getUserInfo(client.buruk); // 추가
+
+      if (user) {
+        if (user.codename === client.codename) {
+          return { success: true };
+        }
+      }
+      return { success: false, msg: "존재하지 않는 종목명입니다." };
     } catch (err) {
       return { success: false, err };
     }

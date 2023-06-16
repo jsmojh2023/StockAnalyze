@@ -8,6 +8,12 @@ dotenv.config();
 
 const app = express();
 
+const mysql = require("mysql");
+const pool = require("./src/config/db");
+const UserStorage = require("./src/models/UserStorage");
+
+const ejs = require('ejs');
+
 // 라우팅
 const home = require("./src/routes/home");
 
